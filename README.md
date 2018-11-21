@@ -1,6 +1,9 @@
 # shmidi
 Shorthand MIDI in Python. 
 
+# why?
+
+
 # background
 This project came from my personal desire to have a shorthand way to compose music. 
 
