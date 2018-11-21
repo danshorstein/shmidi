@@ -19,5 +19,15 @@ For reference, you can view a nice write-up on this sytem by Stanford Chinese Mu
 
 <pre><code>>>> import shmidi
 >>> rainbow = '1 - 1^ - | 7 5/ 6/ 7 1 | 1 - 6 - | 5 - - -'
->>> song = shmidi.compile(rainbow, key='Eb')
+>>> song = shmidi.compile(rainbow, key='Eb') #TODO - implement key, MIDI file header/ meta, and note_off !
+note_on channel=0 note=60 velocity=64 time=1920
+note_on channel=0 note=72 velocity=64 time=1920
+note_on channel=0 note=71 velocity=64 time=960
+note_on channel=0 note=67 velocity=64 time=480
+note_on channel=0 note=69 velocity=64 time=480
+note_on channel=0 note=71 velocity=64 time=960
+note_on channel=0 note=60 velocity=64 time=960
+note_on channel=0 note=60 velocity=64 time=1920
+note_on channel=0 note=69 velocity=64 time=1920
+note_on channel=0 note=67 velocity=64 time=3840
 </code>
