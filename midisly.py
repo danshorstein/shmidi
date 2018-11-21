@@ -7,7 +7,9 @@ sys.path.insert(0, "../..")
 
 from sly import Lexer, Parser
 
-from shmidi_fun import Note
+import shmidi
+
+QUARTER = 960
 
 class ShmidiLexer(Lexer):
     tokens = { NOTE, REST }  # add NAME later? Need to deconflict with 'b' and 'v'
@@ -92,7 +94,7 @@ class ShmidiParser(Parser):
 
     @_('expr "-"')
     def expr(self, p):
-        p.expr.length += 1
+        p.expr.length += QUARTER
         return p.expr
 
     @_('expr "/"')
@@ -119,12 +121,12 @@ class ShmidiParser(Parser):
     @_('REST')
     def expr(self, p):
         # self.note = Note(1, velocity=0)    
-        return Note(1, velocity=0)
+        return shmidi.Note(1, velocity=0)
 
     @_('NOTE')
     def expr(self, p):
         # self.note = Note(p.NOTE)
-        return Note(p.NOTE)
+        return shmidi.Note(p.NOTE)
 
     # @_('NAME')
     # def expr(self, p):

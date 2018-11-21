@@ -1,6 +1,9 @@
 import time
+
 import mido
 from mido import Message
+
+import midisly
 
 msgs = [Message('note_on', note=n) for n in range(30, 100, 2)]
 
@@ -11,7 +14,7 @@ msgs = [Message('note_on', note=n) for n in range(30, 100, 2)]
 #     time.sleep(.03)
 
 class Note:
-    def __init__(self, note_number=1, channel=0, velocity=64, time=0, length=1, root='C'): # length of 1 means quarter note
+    def __init__(self, note_number=1, channel=0, velocity=64, time=0, length=960, root='C'): # length of 960 is standard quarter note
         self.note_number = note_number
         self.channel = channel
         self.note = self.convert_number_to_midi(self.note_number)
@@ -63,22 +66,27 @@ class Melody:
         self.notes.append(note)
         self.melody = self._create_melody()
 
+def compile(notes, **kwargs):
+    lexer = midisly.ShmidiLexer()
+    parser = midisly.ShmidiParser()
+    parser.parse(lexer.tokenize(notes))
+
 if __name__ == '__main__':
-    # outport = mido.open_output('virtual', virtual=True)
 
-
+    melody = '''
+            6v. 6v/ 6v 3 | 3 2 1 - | 7v. 7v/ 7v 1/ 7v/ | 6v - - - |
+            6v/ 6v 6v/ 6 6/ 5/ | 6 5 3 - | 2/ 2 1/ 2 5 | 3 - - - |
+            4/ 4 3/ 4/ 4 3/ | 4 3/ 2/ 1 - | '''
+    
     mary = '3212333'
 
-    mary_melody = Melody(mary)
+    twinkle = '1 1 5 5 6 6 5- 4 4 3 3 2 2 1- 5 5 4 4 3 3 2- 5 5 4 4 3 3 2- 1 1 5 5 6 6 5- 4 4 3 3 2 2 1-'
 
-    print(mary_melody)
-
-    # mary_melody.play()
-
-
-    twinkle = '8 8 8 5 6 6 5 5 3+ 3+ 2+ 2+ 8'.split()
-
-    twinkle_melody = Melody(twinkle)
-
-
-    # twinkle_melody.play()
+    print('melody')
+    compile(melody)
+    print('')
+    print('mary')
+    compile(mary)
+    print()
+    print('twinkle')
+    compile(twinkle)
